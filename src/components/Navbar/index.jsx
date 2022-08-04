@@ -1,10 +1,15 @@
-import React from "react";
-import { NavbarContainer } from "./NavbarElements";
+import React, { useState } from "react";
+import { NavbarContainer, NavHeader } from "./NavbarElements";
+import MobileNav from "./MobileNav";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import { useGlobalStateContext } from "../../context/globalContext";
 
 const Navbar = () => {
+	const [openMenu, setOpenMenu] = useState(false);
+	const { user } = useGlobalStateContext();
+
 	const handleLogout = async () => {
 		const logoutEndpoint = "http://localhost:8000/user/logout";
 		await axios
@@ -22,8 +27,26 @@ const Navbar = () => {
 
 	return (
 		<NavbarContainer>
-			<a href="/">Dashboard</a>
-			<button onClick={handleLogout}>Logout</button>
+			{user.is_admin ? (
+				<h4>
+					<span>[ADMIN]</span>Powered by super.
+				</h4>
+			) : (
+				<h4>Powered by super.</h4>
+			)}
+			<NavHeader>
+				<a href="/">Dashboard</a>
+				<a href="/activity">Activity</a>
+				<a href="/display/modify">MODIFY</a>
+				<button onClick={handleLogout}>Logout</button>
+			</NavHeader>
+
+			<MobileNav
+				openMenu={openMenu}
+				setOpenMenu={setOpenMenu}
+				handleLogout={handleLogout}
+				isAdmin={user.is_admin}
+			/>
 		</NavbarContainer>
 	);
 };

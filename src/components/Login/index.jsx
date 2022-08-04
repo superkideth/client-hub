@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { LoginContainer, LoginForm } from "./LoginElements";
+import { LoginContainer, LoginForm, InfoContainer } from "./LoginElements";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import logo from "../../assets/bootImg.png";
 import axios from "axios";
 
 const Login = () => {
@@ -10,7 +11,7 @@ const Login = () => {
 
 	const handleLogin = async (e) => {
 		e.preventDefault();
-		//axios post to local db
+
 		if (username !== null && password !== null) {
 			const body = {
 				username: username,
@@ -21,25 +22,34 @@ const Login = () => {
 			await axios
 				.post(loginEndpoint, body)
 				.then((response) => {
-					console.log(response.data);
-					// window.localStorage.setItem('user', JSON.stringify(response.data.user))
-					// window.open('/', '_self')
+					window.localStorage.setItem(
+						"user",
+						JSON.stringify(response.data.user)
+					);
+					window.open("/", "_self");
 				})
 				.catch((error) => {
 					console.log(error);
 					toast.error(error.message);
 				});
-			window.localStorage.setItem("user", JSON.stringify(body));
-			window.open("/", "_self");
 		} else {
-			toast.error("Username or Password Empty");
+			toast.error("Error! Try again");
 		}
 	};
 
 	return (
 		<LoginContainer>
+			<InfoContainer>
+				<div className="logo-wrap">
+					<img src={logo} alt="arcade-logo" />
+					<span>x</span>
+					<h1>super.</h1>
+				</div>
+				<p>Manage your super immersive visuals, artworks, experiences</p>
+			</InfoContainer>
+
 			<LoginForm onSubmit={handleLogin}>
-				<h3>Admin Login</h3>
+				<h3>User Login</h3>
 				<p>Username</p>
 				<input
 					type="text"

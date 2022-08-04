@@ -5,7 +5,50 @@ export const LoginContainer = styled.div`
 	width: 100%;
 	height: 100vh;
 	align-items: center;
-	justify-content: center;
+	justify-content: space-evenly;
+
+	@media screen and (max-width: 768px) {
+		flex-direction: column;
+	}
+`;
+
+export const InfoContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: left;
+	text-align: left;
+	.logo-wrap {
+		display: flex;
+		align-items: center;
+		margin: 5px 0;
+		h1 {
+			margin-top: 4px;
+			font-size: 32px;
+		}
+		span {
+			font-weight: 800;
+			font-size: 12px;
+			color: #e0ff14;
+			margin-top: 5px;
+			margin-right: 20px;
+		}
+		img {
+			width: 70px;
+			height: 70px;
+		}
+	}
+
+	p {
+		margin: 0 15px;
+		font-size: 12px;
+		max-width: 210px;
+	}
+
+	@media screen and (max-width: 768px) {
+		margin-top: -100px;
+		align-items: center;
+		text-align: center;
+	}
 `;
 
 export const LoginForm = styled.form`
@@ -13,9 +56,9 @@ export const LoginForm = styled.form`
 	flex-direction: column;
 	margin: 10px;
 	padding: 15px;
-	background: #ff066d;
+	background: #f7f7f7;
 	border-radius: 10px;
-
+	color: #000;
 	h3 {
 		margin: 15px;
 		font-size: 16px;
@@ -30,29 +73,30 @@ export const LoginForm = styled.form`
 
 	input {
 		outline-width: 0;
-		border: 1px solid #f4f4f4;
+		border: 1px solid #000;
 		background: transparent;
 		padding: 10px 20px;
 		margin: 10px;
 		font-size: 14px;
-		color: #f4f4f4;
+		color: #000;
 		cursor: pointer;
 	}
 
 	button {
-		border: 1px solid #f4f4f4;
+		border: 1px solid #000;
 		background: transparent;
 		outline: none;
 		padding: 10px 20px;
 		margin: 10px;
 		font-size: 14px;
-		color: #f4f4f4;
+		color: #000;
 		cursor: pointer;
 		transition: 0.2s ease-in-out;
 
 		&:hover {
-			background: #1b1d1c;
-			border: 1px solid #1b1d1c;
+			color: #f7f7f7;
+			background: #000;
+			border: 1px solid #000;
 		}
 	}
 
@@ -63,5 +107,9 @@ export const LoginForm = styled.form`
 		a {
 			color: inherit;
 		}
+	}
+
+	@media screen and (max-width: 768px) {
+		margin-top: -100px;
 	}
 `;

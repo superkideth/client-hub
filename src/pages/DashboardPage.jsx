@@ -7,8 +7,6 @@ import { ToastContainer } from "react-toastify";
 const DashboardPage = () => {
 	const { user } = useGlobalStateContext();
 
-	console.log(user);
-
 	useEffect(() => {
 		if (user === null) {
 			window.open("/login", "_self");
@@ -29,7 +27,7 @@ const DashboardPage = () => {
 				pauseOnHover
 			/>
 			{user !== null ? <Navbar /> : null}
-			<Dashboard />
+			{user !== null ? <Dashboard /> : null}
 		</>
 	);
 };

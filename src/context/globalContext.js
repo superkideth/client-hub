@@ -26,13 +26,6 @@ const globalReducer = (state, action) => {
 			};
 		}
 
-		case "ADD_LOADING": {
-			return {
-				...state,
-				loading: action.loading,
-			};
-		}
-
 		default: {
 			throw new Error(`Unhandled action type: ${action.type}`);
 		}
@@ -50,7 +43,6 @@ export const GlobalProvider = ({ children }) => {
 				? null
 				: JSON.parse(window.localStorage.getItem("displays")),
 		display: null,
-		loading: false,
 	});
 
 	return (

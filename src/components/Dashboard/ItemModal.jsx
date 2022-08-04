@@ -5,39 +5,47 @@ import {
 	ButtonWrap,
 	ItemWrap,
 	ModalContent,
+	SecondBtnWrap,
+	ModalInfoContainer,
+	InfoFlex,
 } from "./DashboardElements";
 import {
 	useGlobalStateContext,
 	useGlobalDispatchContext,
 } from "../../context/globalContext";
 import { VscArrowLeft } from "react-icons/vsc";
-import { fakeSource } from "./fakeData";
+import { sources } from "./data";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 
 const CloseModalButton = styled(VscArrowLeft)`
 	cursor: pointer;
 	position: absolute;
-	top: 10%;
+	top: 54px;
 	left: 10%;
-	width: 24px;
-	height: 24px;
+	width: 20px;
+	height: 20px;
 	padding: 0;
+	margin: 10px;
 	color: #f4f4f4;
 	transition: all 0.2s ease-in-out;
 	&:hover {
-		color: #ff066d;
+		color: #e0ff14;
 	}
 `;
 
 export const ItemModal = (props) => {
-	const { display } = useGlobalStateContext();
+	const { user, display } = useGlobalStateContext();
 	const dispatch = useGlobalDispatchContext();
-	const [source, setSource] = useState(null);
+	const [source, setSource] = useState("");
+	const [pendingChanges, setPendingChanges] = useState(false);
 
 	const keyPress = useCallback(
 		(e) => {
 			if (e.key === "Escape" && props.showModal) {
 				props.setShowModal(false);
-				dispatch({ type: "ADD_DISPLAY", display: null });
+				// dispatch({ type: "ADD_DISPLAY", display: null });
 			}
 		},
 		[props.setShowModal, props.showModal]
@@ -46,12 +54,78 @@ export const ItemModal = (props) => {
 	const closeModal = () => {
 		props.setShowModal((prev) => !prev);
 		dispatch({ type: "ADD_DISPLAY", display: null });
+		window.location.reload();
 	};
 
 	const handleUpdate = async (e) => {
 		e.preventDefault();
-		// update for display id the source and the turn the currently_playing to true!
-		console.log(`Updating display id: ... with source ${source}`);
+		const updateSourceEndpoint = `http://localhost:8000/displays/${display._id}/source`;
+		const body = {
+			source: source,
+		};
+		await axios
+			.put(updateSourceEndpoint, body, {
+				headers: {
+					Authorization: `Bearer ${user.token}`,
+				},
+			})
+			.then((response) => {
+				console.log(response.data);
+				toast(response.data.message);
+				setPendingChanges(false);
+			})
+			.catch((error) => {
+				toast.error(error.message);
+				console.log(error);
+			});
+	};
+
+	const handleReset = async (e) => {
+		e.preventDefault();
+		const updateSourceEndpoint = `http://localhost:8000/displays/${display._id}/source`;
+		const body = {
+			source: null,
+		};
+		await axios
+			.put(updateSourceEndpoint, body, {
+				headers: {
+					Authorization: `Bearer ${user.token}`,
+				},
+			})
+			.then((response) => {
+				console.log(response.data);
+				toast(response.data.message);
+			})
+			.catch((error) => {
+				toast.error(error.message);
+				console.log(error);
+			});
+	};
+
+	const handleResetConnection = async (e) => {
+		e.preventDefault();
+		const updateConnectionEndpoint = `http://localhost:8000/displays/${display._id}/connect`;
+		const body = {
+			connected: false,
+		};
+		await axios
+			.put(updateConnectionEndpoint, body, {
+				headers: {
+					Authorization: `Bearer ${user.token}`,
+				},
+			})
+			.then((response) => {
+				if (response.data.connected === false) {
+					console.log(response.data);
+					toast(response.data.message);
+				} else {
+					toast.error("Connection Error");
+				}
+			})
+			.catch((error) => {
+				console.log(error);
+				toast.error(error.message);
+			});
 	};
 
 	useEffect(() => {
@@ -59,23 +133,87 @@ export const ItemModal = (props) => {
 		return () => document.removeEventListener("keydown", keyPress);
 	}, [keyPress]);
 
+	useEffect(() => {
+		if (source === "") {
+			setPendingChanges(false);
+		}
+	}, [source]);
+
 	return (
 		<>
 			{props.showModal ? (
 				<Background>
 					<ItemWrap showModal={props.showModal}>
 						<ModalContent>
-							<h4>PREVIEW: </h4>
-							<video autoPlay loop muted src="" type="video/mp4" />
-							<p>DISPLAY ID: {display.id}</p>
+							<h4>PREVIEW</h4>
+
+							<ModalInfoContainer style={{ padding: "0", margin: "0" }}>
+								{pendingChanges && (
+									<h6 style={{ padding: "0", margin: "0" }}>
+										Pending Changes..
+									</h6>
+								)}
+							</ModalInfoContainer>
+							{source === ""
+								? display.source === null && (
+										<img
+											src={require(`../../assets/${display.boot_file}`)}
+											alt={display._id}
+										/>
+								  )
+								: null}
+
+							{source === "" ? (
+								display.source !== null && (
+									<video
+										src={require(`../../assets/${display.source}`)}
+										type="video/mp4"
+										autoPlay
+										loop
+										muted
+									/>
+								)
+							) : (
+								<video
+									src={require(`../../assets/${source}`)}
+									type="video/mp4"
+									autoPlay
+									loop
+									muted
+								/>
+							)}
+							<ModalInfoContainer>
+								{display.display_name !== null && (
+									<InfoFlex>
+										<p style={{ fontWeight: "800" }}>DISPLAY NAME:</p>
+										<p>{display.display_name}</p>
+									</InfoFlex>
+								)}
+
+								<InfoFlex>
+									<p style={{ fontWeight: "800" }}>ID:</p>
+									<h2>{display._id}</h2>
+								</InfoFlex>
+
+								<InfoFlex>
+									<p style={{ fontWeight: "800" }}>CONNECTED:</p>
+									<p>{display.connected ? "yes" : "no"}</p>
+								</InfoFlex>
+							</ModalInfoContainer>
 
 							<ButtonWrap onSubmit={handleUpdate}>
-								<select required onChange={(e) => setSource(e.target.value)}>
-									<option value={null} default>
-										choose source
+								<select
+									required
+									onChange={(e) => {
+										setSource(e.target.value);
+										setPendingChanges(true);
+									}}
+								>
+									<option value={""} default>
+										default
 									</option>
 
-									{fakeSource.map((item, key) => (
+									{sources.map((item, key) => (
 										<option key={key} value={item.href}>
 											{item.name}
 										</option>
@@ -83,6 +221,11 @@ export const ItemModal = (props) => {
 								</select>
 								<button type="submit">Update</button>
 							</ButtonWrap>
+
+							<SecondBtnWrap>
+								<button onClick={handleReset}>reset source</button>
+								<button onClick={handleResetConnection}>Disconnect</button>
+							</SecondBtnWrap>
 						</ModalContent>
 
 						<CloseModalButton onClick={closeModal} />
