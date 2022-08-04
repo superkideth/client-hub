@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { LoginContainer, LoginForm } from "./LoginDisplayElements";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -13,20 +13,15 @@ const LoginDisplay = () => {
 
 	const { displays } = useGlobalStateContext();
 
-	useEffect(() => {
-		window.localStorage.clear();
-	}, []);
-
 	const handleLogin = async (e) => {
 		e.preventDefault();
-		//axios post to local db
 		if (username !== null && password !== null) {
 			const body = {
 				username: username,
 				password: password,
 			};
 
-			const loginEndpoint = "http://localhost:8000/user/login";
+			const loginEndpoint = "/user/login";
 			await axios
 				.post(loginEndpoint, body)
 				.then((response) => {
@@ -44,7 +39,7 @@ const LoginDisplay = () => {
 	};
 
 	const getAllDisplays = async (_token) => {
-		const displaysEndpoint = "http://localhost:8000/displays";
+		const displaysEndpoint = "/displays";
 		await axios
 			.get(displaysEndpoint, {
 				headers: {
@@ -67,7 +62,7 @@ const LoginDisplay = () => {
 		e.preventDefault();
 		console.log(input);
 
-		const updateConnectionEndpoint = `http://localhost:8000/displays/${input}/connect`;
+		const updateConnectionEndpoint = `/displays/${input}/connect`;
 		const body = {
 			connected: true,
 		};

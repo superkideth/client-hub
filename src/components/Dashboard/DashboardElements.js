@@ -175,6 +175,7 @@ export const ButtonWrap = styled.form`
 		font-weight: 700;
 		transition: 0.2s ease-in-out;
 		width: 130px;
+		color: #000;
 		&:hover {
 			background: #e0ff14;
 			border: 1px solid #e0ff14;
@@ -193,6 +194,7 @@ export const ButtonWrap = styled.form`
 		cursor: pointer;
 		transition: 0.2s ease-in-out;
 		width: 130px;
+		color: #000;
 		&:hover {
 			background: #e0ff14;
 			border: 1px solid #e0ff14;
@@ -218,6 +220,7 @@ export const SecondBtnWrap = styled.form`
 		font-weight: 700;
 		transition: 0.2s ease-in-out;
 		width: 130px;
+		color: #000;
 		&:hover {
 			background: #e0ff14;
 			border: 1px solid #e0ff14;

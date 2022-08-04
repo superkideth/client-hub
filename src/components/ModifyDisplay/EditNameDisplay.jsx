@@ -16,7 +16,7 @@ const EditNameDisplay = () => {
 
 	useEffect(() => {
 		const init = async () => {
-			const displaysEndpoint = "http://localhost:8000/displays";
+			const displaysEndpoint = "/displays";
 			await axios
 				.get(displaysEndpoint, {
 					headers: {
@@ -45,7 +45,7 @@ const EditNameDisplay = () => {
 		}
 
 		if (display !== null && name !== null) {
-			const updateNameDisplayEndpoint = `http://localhost:8000/displays/${display}/name`;
+			const updateNameDisplayEndpoint = `/displays/${display}/name`;
 
 			const body = {
 				displayName: name,

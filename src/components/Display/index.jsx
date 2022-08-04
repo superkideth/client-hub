@@ -12,7 +12,7 @@ const Display = () => {
 
 	useEffect(() => {
 		const init = async () => {
-			const getDisplayEndpoint = `http://localhost:8000/displays/${id}`;
+			const getDisplayEndpoint = `/displays/${id}`;
 
 			await axios
 				.get(getDisplayEndpoint, {

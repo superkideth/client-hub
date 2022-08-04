@@ -19,7 +19,7 @@ const CreateDisplay = () => {
 		}
 
 		if (bootFile !== null) {
-			const createDisplayEndpoint = `http://localhost:8000/displays/`;
+			const createDisplayEndpoint = `/displays`;
 			const body = {
 				boot_file: bootFile,
 				source: source,

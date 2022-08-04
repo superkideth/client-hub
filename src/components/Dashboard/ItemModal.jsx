@@ -59,7 +59,7 @@ export const ItemModal = (props) => {
 
 	const handleUpdate = async (e) => {
 		e.preventDefault();
-		const updateSourceEndpoint = `http://localhost:8000/displays/${display._id}/source`;
+		const updateSourceEndpoint = `/displays/${display._id}/source`;
 		const body = {
 			source: source,
 		};
@@ -82,7 +82,7 @@ export const ItemModal = (props) => {
 
 	const handleReset = async (e) => {
 		e.preventDefault();
-		const updateSourceEndpoint = `http://localhost:8000/displays/${display._id}/source`;
+		const updateSourceEndpoint = `/displays/${display._id}/source`;
 		const body = {
 			source: null,
 		};
@@ -104,7 +104,7 @@ export const ItemModal = (props) => {
 
 	const handleResetConnection = async (e) => {
 		e.preventDefault();
-		const updateConnectionEndpoint = `http://localhost:8000/displays/${display._id}/connect`;
+		const updateConnectionEndpoint = `/displays/${display._id}/connect`;
 		const body = {
 			connected: false,
 		};

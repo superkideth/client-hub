@@ -11,7 +11,7 @@ const DeleteDisplay = () => {
 
 	useEffect(() => {
 		const init = async () => {
-			const displaysEndpoint = "http://localhost:8000/displays";
+			const displaysEndpoint = "/displays";
 			await axios
 				.get(displaysEndpoint, {
 					headers: {
@@ -40,7 +40,7 @@ const DeleteDisplay = () => {
 		}
 
 		if (display !== null) {
-			const deleteDisplayEndpoint = `http://localhost:8000/displays/${display}/delete`;
+			const deleteDisplayEndpoint = `/displays/${display}/delete`;
 
 			await axios
 				.delete(deleteDisplayEndpoint, {

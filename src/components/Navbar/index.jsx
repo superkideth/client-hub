@@ -11,7 +11,7 @@ const Navbar = () => {
 	const { user } = useGlobalStateContext();
 
 	const handleLogout = async () => {
-		const logoutEndpoint = "http://localhost:8000/user/logout";
+		const logoutEndpoint = "/user/logout";
 		await axios
 			.post(logoutEndpoint)
 			.then((response) => {

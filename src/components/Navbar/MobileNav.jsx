@@ -17,7 +17,7 @@ const MobileNav = ({ openMenu, setOpenMenu, handleLogout, isAdmin }) => {
 			<MenuContainer openMenu={openMenu}>
 				<CloseIcon onClick={() => setOpenMenu(!openMenu)} />
 				<a href="/">Dashboard</a>
-				<a href="#">Activity</a>
+				<a href="/activity">Activity</a>
 				<a href="/display/modify">MODIFY</a>
 				<button onClick={handleLogout}>Logout</button>
 

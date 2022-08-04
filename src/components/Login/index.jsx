@@ -18,7 +18,7 @@ const Login = () => {
 				password: password,
 			};
 
-			const loginEndpoint = "http://localhost:8000/user/login";
+			const loginEndpoint = "/user/login";
 			await axios
 				.post(loginEndpoint, body)
 				.then((response) => {
