@@ -44,8 +44,12 @@ export const InfoContainer = styled.div`
 		max-width: 210px;
 	}
 
+	h4 {
+		margin: 0 15px;
+		color: #e0ff14;
+	}
+
 	@media screen and (max-width: 768px) {
-		margin-top: -100px;
 		align-items: center;
 		text-align: center;
 	}
@@ -105,11 +109,31 @@ export const LoginForm = styled.form`
 		margin: 10px;
 		text-align: center;
 		a {
-			color: inherit;
+			color: blue;
+			cursor: pointer;
 		}
 	}
 
 	@media screen and (max-width: 768px) {
-		margin-top: -100px;
+		/* margin-top: -60px; */
+	}
+`;
+
+export const PsdWrap = styled.div`
+	display: flex;
+	align-items: center;
+	width: 100%;
+	justify-content: space-between;
+	span {
+		margin: 5px;
+		font-size: 16px;
+		cursor: pointer;
+		transition: 0.2s ease-in-out;
+		svg {
+			margin-right: 5px;
+		}
+		&:hover {
+			color: blue;
+		}
 	}
 `;

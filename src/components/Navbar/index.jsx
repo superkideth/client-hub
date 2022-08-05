@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { NavbarContainer, NavHeader } from "./NavbarElements";
+import {
+	NavbarContainer,
+	NavHeader,
+	LogoFlexContainer,
+	AdminFlexCont,
+} from "./NavbarElements";
 import MobileNav from "./MobileNav";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -28,11 +33,18 @@ const Navbar = () => {
 	return (
 		<NavbarContainer>
 			{user.is_admin ? (
-				<h4>
-					<span>[ADMIN]</span>Powered by super.
-				</h4>
+				<AdminFlexCont>
+					<span>[ADMIN]</span>
+					<LogoFlexContainer>
+						<h4>PANDORA</h4>
+						<h6>powered by super.</h6>
+					</LogoFlexContainer>
+				</AdminFlexCont>
 			) : (
-				<h4>Powered by super.</h4>
+				<LogoFlexContainer>
+					<h4>PANDORA</h4>
+					<h6>powered by super.</h6>
+				</LogoFlexContainer>
 			)}
 			<NavHeader>
 				<a href="/">Dashboard</a>

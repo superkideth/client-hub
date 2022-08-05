@@ -104,28 +104,38 @@ export const ItemModal = (props) => {
 
 	const handleResetConnection = async (e) => {
 		e.preventDefault();
-		const updateConnectionEndpoint = `/displays/${display._id}/connect`;
-		const body = {
-			connected: false,
-		};
-		await axios
-			.put(updateConnectionEndpoint, body, {
-				headers: {
-					Authorization: `Bearer ${user.token}`,
-				},
-			})
-			.then((response) => {
-				if (response.data.connected === false) {
-					console.log(response.data);
-					toast(response.data.message);
-				} else {
-					toast.error("Connection Error");
-				}
-			})
-			.catch((error) => {
-				console.log(error);
-				toast.error(error.message);
-			});
+		const displayNameOrId =
+			display.display_name !== null ? display.display_name : display._id;
+		if (
+			window.confirm(
+				`You are going to disconnect: ${displayNameOrId}. Are you sure?`
+			)
+		) {
+			const updateConnectionEndpoint = `/displays/${display._id}/connect`;
+			const body = {
+				connected: false,
+			};
+			await axios
+				.put(updateConnectionEndpoint, body, {
+					headers: {
+						Authorization: `Bearer ${user.token}`,
+					},
+				})
+				.then((response) => {
+					if (response.data.connected === false) {
+						console.log(response.data);
+						toast(response.data.message);
+					} else {
+						toast.error("Connection Error");
+					}
+				})
+				.catch((error) => {
+					console.log(error);
+					toast.error(error.message);
+				});
+		} else {
+			toast.error("Disconnect Action Canceled");
+		}
 	};
 
 	useEffect(() => {
@@ -145,15 +155,7 @@ export const ItemModal = (props) => {
 				<Background>
 					<ItemWrap showModal={props.showModal}>
 						<ModalContent>
-							<h4>PREVIEW</h4>
-
-							<ModalInfoContainer style={{ padding: "0", margin: "0" }}>
-								{pendingChanges && (
-									<h6 style={{ padding: "0", margin: "0" }}>
-										Pending Changes..
-									</h6>
-								)}
-							</ModalInfoContainer>
+							<h4>VISUAL PREVIEW</h4>
 							{source === ""
 								? display.source === null && (
 										<img
@@ -182,22 +184,32 @@ export const ItemModal = (props) => {
 									muted
 								/>
 							)}
+
 							<ModalInfoContainer>
 								{display.display_name !== null && (
 									<InfoFlex>
 										<p style={{ fontWeight: "800" }}>DISPLAY NAME:</p>
-										<p>{display.display_name}</p>
+										<p style={{ color: "#e0ff14" }}>{display.display_name}</p>
 									</InfoFlex>
 								)}
 
 								<InfoFlex>
 									<p style={{ fontWeight: "800" }}>ID:</p>
-									<h2>{display._id}</h2>
+									<h2 style={{ color: "#e0ff14" }}>{display._id}</h2>
 								</InfoFlex>
 
 								<InfoFlex>
-									<p style={{ fontWeight: "800" }}>CONNECTED:</p>
-									<p>{display.connected ? "yes" : "no"}</p>
+									<p style={{ fontWeight: "800" }}>STATUS:</p>
+									<p style={{ color: "#e0ff14" }}>
+										{display.connected ? "CONNECTED" : "DISCONNECTED"}
+									</p>
+								</InfoFlex>
+
+								<InfoFlex>
+									<p style={{ fontWeight: "800" }}>PENDING CHANGE:</p>
+									<p style={{ color: "#e0ff14" }}>
+										{display.connected ? "NO" : "YES"}
+									</p>
 								</InfoFlex>
 							</ModalInfoContainer>
 

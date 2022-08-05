@@ -129,17 +129,14 @@ export const ModalInfoContainer = styled.div`
 	flex-direction: column;
 	width: 300px;
 	padding: 15px;
+	margin-bottom: 10px;
 	border-radius: 10px;
 	align-items: center;
 	margin-top: -20px;
 	color: #f7f7f7;
 	p {
-		font-size: 14px;
-		margin: 5px 0;
-	}
-
-	h6 {
-		color: #e0ff14;
+		font-size: 12px;
+		margin: 2px 0;
 	}
 `;
 
@@ -147,12 +144,12 @@ export const InfoFlex = styled.div`
 	display: flex;
 	width: 100%;
 	justify-content: space-between;
-
 	h2 {
-		font-size: 14px;
+		font-size: 12px;
+		margin: 2px 0;
 		font-weight: 400;
 		overflow: hidden;
-		max-width: 11ch;
+		max-width: 12.6ch;
 		text-overflow: ellipsis;
 		white-space: nowrap;
 	}
@@ -195,6 +192,7 @@ export const ButtonWrap = styled.form`
 		transition: 0.2s ease-in-out;
 		width: 130px;
 		color: #000;
+		text-transform: uppercase;
 		&:hover {
 			background: #e0ff14;
 			border: 1px solid #e0ff14;

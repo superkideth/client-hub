@@ -10,7 +10,7 @@ export const ActivityContainer = styled.div`
 
 	ul {
 		width: 60%;
-		height: 80%;
+		height: 40%;
 		display: flex;
 		flex-direction: column;
 		background-color: #f7f7f7;
@@ -50,7 +50,7 @@ export const ActivityContainer = styled.div`
 		margin-top: -20px;
 		ul {
 			width: 90%;
-			height: 80%;
+			height: 60%;
 			li {
 				padding: 15px;
 				p {

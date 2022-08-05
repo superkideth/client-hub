@@ -34,6 +34,7 @@ export const ModifyFlex = styled.div`
 		cursor: pointer;
 		transition: 0.2s ease-in-out;
 		border-radius: 10px;
+		text-transform: uppercase;
 		&:hover {
 			border: 1px solid #525150;
 			background: #525150;

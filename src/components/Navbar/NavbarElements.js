@@ -24,19 +24,6 @@ export const NavbarContainer = styled.div`
 		}
 	}
 
-	h4 {
-		font-size: 18px;
-		margin: 10px;
-		padding: 15px;
-		transition: 0.2s ease-in-out;
-		span {
-			font-size: 14px;
-			margin-right: 10px;
-			font-weight: 400;
-			color: #e0ff14;
-		}
-	}
-
 	button {
 		font-size: 14px;
 		color: inherit;
@@ -55,6 +42,40 @@ export const NavbarContainer = styled.div`
 		}
 	}
 `;
+
+export const LogoFlexContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: left;
+	h4 {
+		font-size: 18px;
+		margin: 0 10px;
+		padding: 0 15px;
+		transition: 0.2s ease-in-out;
+		color: #e0ff14;
+	}
+	h6 {
+		margin-left: 7px;
+		font-weight: 400;
+	}
+`;
+
+export const AdminFlexCont = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: left;
+	span {
+		font-size: 12px;
+		margin-left: 10px;
+		padding-left: 15px;
+		font-weight: 600;
+		color: #e0ff14;
+	}
+`;
+
 export const MenuContainer = styled.div`
 	display: ${(props) => (props.openMenu ? "flex" : "none")};
 	flex-direction: column;

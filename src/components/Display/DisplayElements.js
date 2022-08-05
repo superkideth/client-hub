@@ -1,5 +1,34 @@
 import styled from "styled-components";
 
+export const NoMobileAccess = styled.div`
+	display: flex;
+
+	@media screen and (max-width: 1560px) {
+		display: none;
+	}
+`;
+
+export const NoAccessContainer = styled.div`
+	display: none;
+	flex-direction: column;
+	width: 100%;
+	height: 100vh;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	h5 {
+		color: red;
+	}
+	p {
+		font-size: 14px;
+		margin: 5px;
+		max-width: 280px;
+	}
+	@media screen and (max-width: 1560px) {
+		display: flex;
+	}
+`;
+
 export const HeroBg = styled.div`
 	position: absolute;
 	top: 0;

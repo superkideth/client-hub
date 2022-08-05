@@ -28,7 +28,7 @@ const DisplayList = ({ displays, showModal, setShowModal, handleDetails }) => {
 									muted
 								/>
 							)}
-							<span>connected: {item.connected ? "yes" : "no"}</span>
+							<span>{item.connected ? "connected" : "disconnected"}</span>
 						</li>
 					))}
 				</ul>
