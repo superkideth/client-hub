@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-	useGlobalStateContext,
-	useGlobalDispatchContext,
-} from "../../context/globalContext";
+import { useGlobalStateContext } from "../../context/globalContext";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { CreateDisplayContainer, CreateForm } from "./CreateDisplayEleements";
@@ -10,7 +7,6 @@ import axios from "axios";
 
 const EditNameDisplay = () => {
 	const { user, displays, loading, chooseClient } = useGlobalStateContext();
-	const dispatch = useGlobalDispatchContext();
 	const [display, setDisplay] = useState(null);
 	const [name, setName] = useState(null);
 

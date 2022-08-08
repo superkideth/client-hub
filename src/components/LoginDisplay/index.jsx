@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-import { LoginContainer, LoginForm, PsdWrap } from "./LoginDisplayElements";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import axios from "axios";
+import ClickToConnect from "./ClickToConnect";
+import ChooseDisplayPreview from "./ChooseDisplayPreview";
+import LoginDisplayPreview from "./LoginDisplayPreview";
+import { LoginContainer } from "./LoginDisplayElements";
 import {
 	useGlobalStateContext,
 	useGlobalDispatchContext,
 } from "../../context/globalContext";
-import ClickToConnect from "./ClickToConnect";
-import { BiShow, BiHide } from "react-icons/bi";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 
 const LoginDisplay = () => {
 	const [username, setUsername] = useState(null);
@@ -96,50 +97,19 @@ const LoginDisplay = () => {
 			{accessLoginForm ? (
 				<LoginContainer>
 					{loggedIn ? (
-						<LoginForm onSubmit={handleConnect}>
-							<h3>Choose Display</h3>
-							<select required onChange={(e) => setInput(e.target.value)}>
-								<option value="" default>
-									choose display
-								</option>
-
-								{displays.map((item, key) =>
-									item.connected === false ? (
-										<option key={key} value={item._id}>
-											{item.display_name === null
-												? item._id
-												: item.display_name}
-										</option>
-									) : null
-								)}
-							</select>
-							<button type="submit">Access Display</button>
-						</LoginForm>
+						<ChooseDisplayPreview
+							handleConnect={handleConnect}
+							setInput={setInput}
+							displays={displays}
+						/>
 					) : (
-						<LoginForm onSubmit={handleLogin}>
-							<h3>PANDORA DISPLAY</h3>
-							<p>Username</p>
-							<input
-								type="text"
-								onChange={(e) => setUsername(e.target.value)}
-								required
-							/>
-							<PsdWrap>
-								<p>Password</p>
-								<span onClick={() => setHidePass(!hidePass)}>
-									{hidePass ? <BiHide /> : <BiShow />}
-								</span>
-							</PsdWrap>
-							<input
-								type={hidePass ? "password" : "text"}
-								onChange={(e) => setPassword(e.target.value)}
-								required
-							/>
-							<button type="submit">Log in</button>
-							<span>
-								Powered by <a href="https://superxlabs.io">Super X Labs</a>
-							</span>
-						</LoginForm>
+						<LoginDisplayPreview
+							handleLogin={handleLogin}
+							setUsername={setUsername}
+							setHidePass={setHidePass}
+							hidePass={hidePass}
+							setPassword={setPassword}
+						/>
 					)}
 				</LoginContainer>
 			) : (

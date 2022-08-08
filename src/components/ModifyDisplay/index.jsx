@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import CreateDisplay from "./CreateDisplay";
 import DeleteDisplay from "./DeleteDisplay";
 import EditNameDisplay from "./EditNameDisplay";
-import { ModifyContainer, ModifyFlex } from "./CreateDisplayEleements";
+import ModifySelectorPreview from "./ModifySelectorPreview";
+import { ModifyContainer } from "./CreateDisplayEleements";
 import { useGlobalStateContext } from "../../context/globalContext";
 
 const ModifyDisplay = () => {
@@ -11,22 +12,7 @@ const ModifyDisplay = () => {
 
 	return (
 		<ModifyContainer>
-			<ModifyFlex>
-				<h2>MODIFY DISPLAY</h2>
-
-				<select required onChange={(e) => setAction(e.target.value)}>
-					<option value="edit-name" default>
-						edit name
-					</option>
-					{user.is_admin ? (
-						<>
-							<option value="create">create</option>
-							<option value="delete">delete</option>
-						</>
-					) : null}
-				</select>
-			</ModifyFlex>
-
+			<ModifySelectorPreview setAction={setAction} user={user} />
 			{action === "create" && <CreateDisplay />}
 			{action === "delete" && <DeleteDisplay />}
 			{action === "edit-name" && <EditNameDisplay />}
