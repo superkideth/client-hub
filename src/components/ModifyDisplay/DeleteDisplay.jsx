@@ -6,30 +6,34 @@ import { CreateDisplayContainer, CreateForm } from "./CreateDisplayEleements";
 import axios from "axios";
 
 const DeleteDisplay = () => {
-	const { user, displays, loading } = useGlobalStateContext();
+	const { user, displays, loading, chooseClient } = useGlobalStateContext();
 	const [display, setDisplay] = useState(null);
 
 	useEffect(() => {
-		const init = async () => {
-			const displaysEndpoint = "/displays";
-			await axios
-				.get(displaysEndpoint, {
-					headers: {
-						Authorization: `Bearer ${user.token}`,
-					},
-				})
-				.then((response) => {
-					window.localStorage.setItem(
-						"displays",
-						JSON.stringify(response.data.displays)
-					);
-				})
-				.catch((error) => {
-					toast.error(error.message);
-					console.log(error);
-				});
+		const getDisplaysForAdmin = async () => {
+			if (chooseClient.clientId !== null) {
+				const displaysEndpointAdmin = `/displays?clientId=${chooseClient.clientId}`;
+				await axios
+					.get(displaysEndpointAdmin, {
+						headers: {
+							Authorization: `Bearer ${user.token}`,
+						},
+					})
+					.then((response) => {
+						window.localStorage.setItem(
+							"displays",
+							JSON.stringify(response.data.displays)
+						);
+					})
+					.catch((error) => {
+						toast.error(error.message);
+						console.log(error);
+					});
+			}
 		};
-		init();
+		if (user.is_admin) {
+			getDisplaysForAdmin();
+		}
 	}, []);
 
 	const handleDelete = async (e) => {

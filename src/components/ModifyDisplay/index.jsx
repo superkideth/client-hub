@@ -13,6 +13,7 @@ const ModifyDisplay = () => {
 		<ModifyContainer>
 			<ModifyFlex>
 				<h2>MODIFY DISPLAY</h2>
+
 				<select required onChange={(e) => setAction(e.target.value)}>
 					<option value="edit-name" default>
 						edit name

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { VscArrowLeft } from "react-icons/vsc";
 
 export const DashboardContainer = styled.div`
 	display: flex;
@@ -155,6 +156,22 @@ export const InfoFlex = styled.div`
 	}
 `;
 
+export const CloseModalButton = styled(VscArrowLeft)`
+	cursor: pointer;
+	position: absolute;
+	top: 54px;
+	left: 10%;
+	width: 20px;
+	height: 20px;
+	padding: 0;
+	margin: 10px;
+	color: #f4f4f4;
+	transition: all 0.2s ease-in-out;
+	&:hover {
+		color: #e0ff14;
+	}
+`;
+
 export const ButtonWrap = styled.form`
 	display: flex;
 	width: 300px;
@@ -225,4 +242,78 @@ export const SecondBtnWrap = styled.form`
 			color: #000;
 		}
 	}
+`;
+
+// Chose client tab
+
+export const ChoseClientForm = styled.form`
+	display: flex;
+	flex-direction: column;
+	margin: 10px;
+	padding: 15px;
+	background: #f7f7f7;
+	border-radius: 10px;
+	color: #000;
+	margin-top: 300px;
+	h3 {
+		margin: 15px;
+		font-size: 16px;
+		text-align: center;
+		text-decoration: underline;
+	}
+
+	p {
+		margin: 5px;
+		font-size: 14px;
+	}
+
+	input {
+		outline-width: 0;
+		border: 1px solid #000;
+		background: transparent;
+		padding: 10px 20px;
+		margin: 10px;
+		font-size: 14px;
+		color: #000;
+		cursor: pointer;
+	}
+
+	button,
+	select {
+		border: 1px solid #000;
+		background: transparent;
+		outline: none;
+		padding: 10px 20px;
+		margin: 10px;
+		font-size: 14px;
+		color: #000;
+		cursor: pointer;
+		transition: 0.2s ease-in-out;
+		text-transform: uppercase;
+
+		&:hover {
+			background: #000;
+			color: #f7f7f7;
+			border: 1px solid #f7f7f7;
+		}
+	}
+
+	span {
+		font-size: 12px;
+		margin: 10px;
+		text-align: center;
+		a {
+			color: blue;
+			cursor: pointer;
+		}
+	}
+`;
+
+export const ChoseClientContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: 90vh;
+	align-items: center;
+	justify-content: center;
 `;

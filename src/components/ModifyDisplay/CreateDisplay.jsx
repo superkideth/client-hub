@@ -8,7 +8,7 @@ import { bootData } from "./data";
 import { sources } from "../Dashboard/data";
 
 const CreateDisplay = () => {
-	const { user } = useGlobalStateContext();
+	const { user, chooseClient } = useGlobalStateContext();
 	const [bootFile, setBootFile] = useState("bootImg.png");
 	const [source, setSource] = useState(null);
 
@@ -19,25 +19,28 @@ const CreateDisplay = () => {
 		}
 
 		if (bootFile !== null) {
-			const createDisplayEndpoint = `/displays`;
-			const body = {
-				boot_file: bootFile,
-				source: source,
-			};
-			await axios
-				.post(createDisplayEndpoint, body, {
-					headers: {
-						Authorization: `Bearer ${user.token}`,
-					},
-				})
-				.then((response) => {
-					console.log(response.data);
-					toast(`Created display with id:${response.data.display._id}`);
-				})
-				.catch((error) => {
-					console.log(error);
-					toast.error(error.message);
-				});
+			if (chooseClient.clientId !== null) {
+				const createDisplayEndpoint = `/displays`;
+				const body = {
+					boot_file: bootFile,
+					source: source,
+					client: chooseClient.clientId,
+				};
+				await axios
+					.post(createDisplayEndpoint, body, {
+						headers: {
+							Authorization: `Bearer ${user.token}`,
+						},
+					})
+					.then((response) => {
+						console.log(response.data);
+						toast(`Created display with id:${response.data.display._id}`);
+					})
+					.catch((error) => {
+						console.log(error);
+						toast.error(error.message);
+					});
+			}
 		} else {
 			toast.error("Boot File is Required");
 		}

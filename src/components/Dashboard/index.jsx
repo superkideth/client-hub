@@ -35,6 +35,7 @@ const Dashboard = () => {
 				.catch((error) => {
 					toast.error(error.message);
 					console.log(error);
+					setLoading(false);
 				});
 		};
 		init();
@@ -56,6 +57,7 @@ const Dashboard = () => {
 							<DisplayInfo>
 								<h6>Manage your super visuals, artworks, experiences</h6>
 							</DisplayInfo>
+
 							<DisplayList
 								displays={displays}
 								showModal={showModal}

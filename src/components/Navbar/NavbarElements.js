@@ -49,16 +49,24 @@ export const LogoFlexContainer = styled.div`
 	align-items: center;
 	justify-content: center;
 	text-align: left;
+	cursor: pointer;
+	transition: 0.2s ease-in-out;
+	padding: 15px;
+	margin: 0 10px;
+	border-radius: 10px;
+
 	h4 {
 		font-size: 18px;
-		margin: 0 10px;
-		padding: 0 15px;
 		transition: 0.2s ease-in-out;
 		color: #e0ff14;
 	}
 	h6 {
 		margin-left: 7px;
 		font-weight: 400;
+	}
+
+	&:hover {
+		background: #363534;
 	}
 `;
 
@@ -67,6 +75,7 @@ export const AdminFlexCont = styled.div`
 	align-items: center;
 	justify-content: center;
 	text-align: left;
+
 	span {
 		font-size: 12px;
 		margin-left: 10px;

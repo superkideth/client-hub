@@ -12,6 +12,20 @@ const globalReducer = (state, action) => {
 			};
 		}
 
+		case "ADD_CLIENTS": {
+			return {
+				...state,
+				clients: action.clients,
+			};
+		}
+
+		case "ADD_CHOOSE_CLIENT": {
+			return {
+				...state,
+				chooseClient: action.chooseClient,
+			};
+		}
+
 		case "ADD_DISPLAYS": {
 			return {
 				...state,
@@ -43,6 +57,11 @@ export const GlobalProvider = ({ children }) => {
 				? null
 				: JSON.parse(window.localStorage.getItem("displays")),
 		display: null,
+		clients: null,
+		chooseClient:
+			window.localStorage.getItem("chooseClient") === null
+				? { chooseClient: false, clientId: null }
+				: JSON.parse(window.localStorage.getItem("chooseClient")),
 	});
 
 	return (

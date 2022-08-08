@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import Dashboard from "../components/Dashboard";
+import AdminDashboard from "../components/Dashboard/AdminDashboard";
 import Navbar from "../components/Navbar";
 import { useGlobalStateContext } from "../context/globalContext";
 import { ToastContainer } from "react-toastify";
@@ -27,7 +28,13 @@ const DashboardPage = () => {
 				pauseOnHover
 			/>
 			{user !== null ? <Navbar /> : null}
-			{user !== null ? <Dashboard /> : null}
+			{user !== null ? (
+				user.is_admin ? (
+					<AdminDashboard />
+				) : (
+					<Dashboard />
+				)
+			) : null}
 		</>
 	);
 };

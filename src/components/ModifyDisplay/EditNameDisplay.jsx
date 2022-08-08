@@ -9,13 +9,13 @@ import { CreateDisplayContainer, CreateForm } from "./CreateDisplayEleements";
 import axios from "axios";
 
 const EditNameDisplay = () => {
-	const { user, displays, loading } = useGlobalStateContext();
+	const { user, displays, loading, chooseClient } = useGlobalStateContext();
 	const dispatch = useGlobalDispatchContext();
 	const [display, setDisplay] = useState(null);
 	const [name, setName] = useState(null);
 
 	useEffect(() => {
-		const init = async () => {
+		const getDisplays = async () => {
 			const displaysEndpoint = "/displays";
 			await axios
 				.get(displaysEndpoint, {
@@ -34,7 +34,33 @@ const EditNameDisplay = () => {
 					console.log(error);
 				});
 		};
-		init();
+
+		const getDisplaysForAdmin = async () => {
+			if (chooseClient.clientId !== null) {
+				const displaysEndpointAdmin = `/displays?clientId=${chooseClient.clientId}`;
+				await axios
+					.get(displaysEndpointAdmin, {
+						headers: {
+							Authorization: `Bearer ${user.token}`,
+						},
+					})
+					.then((response) => {
+						window.localStorage.setItem(
+							"displays",
+							JSON.stringify(response.data.displays)
+						);
+					})
+					.catch((error) => {
+						toast.error(error.message);
+						console.log(error);
+					});
+			}
+		};
+		if (user.is_admin) {
+			getDisplaysForAdmin();
+		} else {
+			getDisplays();
+		}
 	}, []);
 
 	const handleUpdateName = async (e) => {

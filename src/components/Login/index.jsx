@@ -55,7 +55,7 @@ const Login = () => {
 					<h1>super.</h1>
 				</div>
 				<p>
-					Manage your super digital visuals, tech driven sculptures & immersive
+					Manage your super digital visuals, tech driven sculptures, immersive
 					experiences & more.
 				</p>
 			</InfoContainer>

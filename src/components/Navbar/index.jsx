@@ -1,15 +1,11 @@
 import React, { useState } from "react";
-import {
-	NavbarContainer,
-	NavHeader,
-	LogoFlexContainer,
-	AdminFlexCont,
-} from "./NavbarElements";
+import { NavbarContainer, NavHeader } from "./NavbarElements";
 import MobileNav from "./MobileNav";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { useGlobalStateContext } from "../../context/globalContext";
+import NavLogoPreview from "./NavLogoPreview";
 
 const Navbar = () => {
 	const [openMenu, setOpenMenu] = useState(false);
@@ -30,22 +26,24 @@ const Navbar = () => {
 			});
 	};
 
+	const handleAdminClientSelection = () => {
+		window.localStorage.setItem(
+			"chooseClient",
+			JSON.stringify({
+				chooseClient: false,
+				clientId: null,
+			})
+		);
+		window.open("/", "_self");
+	};
+
 	return (
 		<NavbarContainer>
-			{user.is_admin ? (
-				<AdminFlexCont>
-					<span>[ADMIN]</span>
-					<LogoFlexContainer>
-						<h4>PANDORA</h4>
-						<h6>powered by super.</h6>
-					</LogoFlexContainer>
-				</AdminFlexCont>
-			) : (
-				<LogoFlexContainer>
-					<h4>PANDORA</h4>
-					<h6>powered by super.</h6>
-				</LogoFlexContainer>
-			)}
+			<NavLogoPreview
+				user={user}
+				handleAdminClientSelection={handleAdminClientSelection}
+			/>
+
 			<NavHeader>
 				<a href="/">Dashboard</a>
 				<a href="/activity">Activity</a>

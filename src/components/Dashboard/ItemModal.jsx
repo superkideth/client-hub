@@ -1,43 +1,26 @@
 import React, { useState, useEffect, useCallback } from "react";
-import styled from "styled-components";
 import {
 	Background,
-	ButtonWrap,
 	ItemWrap,
 	ModalContent,
-	SecondBtnWrap,
-	ModalInfoContainer,
-	InfoFlex,
+	CloseModalButton,
 } from "./DashboardElements";
+import ModalVisualPreview from "./ModalVisualPreview";
+import ModalDisplayInfoPreview from "./ModalDisplayInfoPreview";
+import ModalButtonControls from "./ModalButtonControls";
 import {
 	useGlobalStateContext,
 	useGlobalDispatchContext,
 } from "../../context/globalContext";
-import { VscArrowLeft } from "react-icons/vsc";
 import { sources } from "./data";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 
-const CloseModalButton = styled(VscArrowLeft)`
-	cursor: pointer;
-	position: absolute;
-	top: 54px;
-	left: 10%;
-	width: 20px;
-	height: 20px;
-	padding: 0;
-	margin: 10px;
-	color: #f4f4f4;
-	transition: all 0.2s ease-in-out;
-	&:hover {
-		color: #e0ff14;
-	}
-`;
-
 export const ItemModal = (props) => {
 	const { user, display } = useGlobalStateContext();
 	const dispatch = useGlobalDispatchContext();
+
 	const [source, setSource] = useState("");
 	const [pendingChanges, setPendingChanges] = useState(false);
 
@@ -156,90 +139,20 @@ export const ItemModal = (props) => {
 					<ItemWrap showModal={props.showModal}>
 						<ModalContent>
 							<h4>VISUAL PREVIEW</h4>
-							{source === ""
-								? display.source === null && (
-										<img
-											src={require(`../../assets/${display.boot_file}`)}
-											alt={display._id}
-										/>
-								  )
-								: null}
-
-							{source === "" ? (
-								display.source !== null && (
-									<video
-										src={require(`../../assets/${display.source}`)}
-										type="video/mp4"
-										autoPlay
-										loop
-										muted
-									/>
-								)
-							) : (
-								<video
-									src={require(`../../assets/${source}`)}
-									type="video/mp4"
-									autoPlay
-									loop
-									muted
-								/>
-							)}
-
-							<ModalInfoContainer>
-								{display.display_name !== null && (
-									<InfoFlex>
-										<p style={{ fontWeight: "800" }}>DISPLAY NAME:</p>
-										<p style={{ color: "#e0ff14" }}>{display.display_name}</p>
-									</InfoFlex>
-								)}
-
-								<InfoFlex>
-									<p style={{ fontWeight: "800" }}>ID:</p>
-									<h2 style={{ color: "#e0ff14" }}>{display._id}</h2>
-								</InfoFlex>
-
-								<InfoFlex>
-									<p style={{ fontWeight: "800" }}>STATUS:</p>
-									<p style={{ color: "#e0ff14" }}>
-										{display.connected ? "CONNECTED" : "DISCONNECTED"}
-									</p>
-								</InfoFlex>
-
-								<InfoFlex>
-									<p style={{ fontWeight: "800" }}>PENDING CHANGE:</p>
-									<p style={{ color: "#e0ff14" }}>
-										{display.connected ? "NO" : "YES"}
-									</p>
-								</InfoFlex>
-							</ModalInfoContainer>
-
-							<ButtonWrap onSubmit={handleUpdate}>
-								<select
-									required
-									onChange={(e) => {
-										setSource(e.target.value);
-										setPendingChanges(true);
-									}}
-								>
-									<option value={""} default>
-										default
-									</option>
-
-									{sources.map((item, key) => (
-										<option key={key} value={item.href}>
-											{item.name}
-										</option>
-									))}
-								</select>
-								<button type="submit">Update</button>
-							</ButtonWrap>
-
-							<SecondBtnWrap>
-								<button onClick={handleReset}>reset source</button>
-								<button onClick={handleResetConnection}>Disconnect</button>
-							</SecondBtnWrap>
+							<ModalVisualPreview source={source} display={display} />
+							<ModalDisplayInfoPreview
+								display={display}
+								pendingChanges={pendingChanges}
+							/>
+							<ModalButtonControls
+								handleUpdate={handleUpdate}
+								setSource={setSource}
+								setPendingChanges={setPendingChanges}
+								sources={sources}
+								handleReset={handleReset}
+								handleResetConnection={handleResetConnection}
+							/>
 						</ModalContent>
-
 						<CloseModalButton onClick={closeModal} />
 					</ItemWrap>
 				</Background>

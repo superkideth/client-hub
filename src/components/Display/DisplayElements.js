@@ -24,7 +24,7 @@ export const NoAccessContainer = styled.div`
 		margin: 5px;
 		max-width: 280px;
 	}
-	@media screen and (max-width: 1560px) {
+	@media screen and (max-width: 1160px) {
 		display: flex;
 	}
 `;
