@@ -38,7 +38,7 @@ const Display = () => {
 				});
 		};
 		init();
-		const refreshPostTime = 30 * 1000; // every 30 sec
+		const refreshPostTime = 5 * 1000; // every 30 sec
 		setInterval(init, refreshPostTime);
 	}, []);
 

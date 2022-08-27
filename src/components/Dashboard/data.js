@@ -1,10 +1,10 @@
 export const sources = [
 	{
-		name: "Particle Supernova",
-		href: "visual.mp4",
+		name: "Supernova",
+		href: "supernova.mp4",
 	},
 	{
-		name: "Antimatter",
-		href: "test.mp4",
+		name: "I know the power you feel",
+		href: "thepower.mp4",
 	},
 ];
